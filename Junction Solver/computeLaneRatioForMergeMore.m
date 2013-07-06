@@ -1,0 +1,23 @@
+function[q13oLaneRatio1, q13sLaneRatio1, q23sLaneRatio1, q23oLaneRatio1,...
+    q13oLaneRatio2, q13sLaneRatio2, q23sLaneRatio2, q23oLaneRatio2]=...
+    computeLaneRatioForMergeMore(node)
+
+% number of lanes on the RHS of junction
+rightNumLanes=node.num_JunctionA+...
+    node.num_JunctionB+node.num_JunctionC;
+
+% RHS lane ratio
+q13oLaneRatio2=node.num_JunctionA/rightNumLanes;
+q13sLaneRatio2=node.num_JunctionB/rightNumLanes;
+q23sLaneRatio2=node.num_JunctionB/rightNumLanes;
+q23oLaneRatio2=node.num_JunctionC/rightNumLanes;
+
+% LHS
+q13oLaneRatio1=node.num_JunctionA/...
+    (node.num_JunctionA+node.num_JunctionB);
+q13sLaneRatio1=node.num_JunctionB/...
+    (node.num_JunctionA+node.num_JunctionB);
+q23sLaneRatio1=node.num_JunctionB/...
+    (node.num_JunctionB+node.num_JunctionC);
+q23oLaneRatio1=node.num_JunctionC/...
+    (node.num_JunctionB+node.num_JunctionC);
