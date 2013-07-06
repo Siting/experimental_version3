@@ -1,10 +1,10 @@
-function[NEW_ACCEPTED_POP, newWeights, ar] = ABC_SMC_stage2AndLater2_type2_network(measConfigID, configID, samplingSize, criteria,...
+function[NEW_ACCEPTED_POP, newWeights, ar, NEW_REJECTED_POP] = ABC_SMC_stage2AndLater2_type2_network(measConfigID, configID, samplingSize, criteria,...
                     ACCEPTED_POP, REJECTED_POP, ALL_SAMPLES, oldWeights, populationSize, PARAMETER, CONFIG,...
                     sensorMetaDataMap, LINK, SOURCE_LINK, SINK_LINK, JUNCTION, stage, linkMap, testingSensorIDs,...
                     sensorDataMatrix, nodeMap)
    
 condition = true;
-[NEW_ACCEPTED_POP] = initializeAcceptedRejected(linkMap);
+[NEW_ACCEPTED_POP, NEW_REJECTED_POP] = initializeAcceptedRejected(linkMap);
 newWeights = [];
 times = 1;
 existedLinks = 0;
@@ -30,17 +30,12 @@ while(condition)
  
     % filter samples, accept or reject?
     disp('start calibration');
-    [POPULATION_3, population_4, indexCollection_2, filteredWeights] = filterSamples_type2_network(POPULATION_2, indexCollection_1, oldWeights,...
+    [POPULATION_3, POPULATION_4, indexCollection_2, filteredWeights] = filterSamples_type2_network(POPULATION_2, indexCollection_1, oldWeights,...
         configID, measConfigID, stage, sensorDataMatrix, testingSensorIDs, linkMap, nodeMap, sensorMetaDataMap, T, deltaTinSecond);
-    
-%     if times <= 5
-%         save([CONFIG.evolutionDataFolder 'node-' num2str(nodeID) '-sampledAndPertubed-stage-' num2str(stage) '-time-' num2str(times)], 'POPULATION_1', 'POPULATION_2',...
-%             'POPULATION_3', 'population_4');
-%     end
     
     if times <= 5
         save([CONFIG.evolutionDataFolder '-sampledAndPertubed-stage-' num2str(stage) '-time-' num2str(times)], 'POPULATION_1', 'POPULATION_2',...
-            'POPULATION_3', 'population_4');
+            'POPULATION_3', 'POPULATION_4');
     end
 
     if size(POPULATION_3(1).samples, 2) == 0 
@@ -53,6 +48,7 @@ while(condition)
     
     % save
     NEW_ACCEPTED_POP = saveNewSamples(NEW_ACCEPTED_POP, POPULATION_3);
+    NEW_REJECTED_POP = saveNewSamples(NEW_REJECTED_POP, POPULATION_4);
     
     % take one out use as example
     newAcceptedPop1 = NEW_ACCEPTED_POP(1).samples;

@@ -2,9 +2,6 @@ function[ACCEPTED_POP, REJECTED_POP, indexCollection] = ABC_SMC_stage1_type2_net
     populationSize, times, ACCEPTED_POP, REJECTED_POP, indexCollection, tSensorIDs, sensorDataMatrix, nodeMap, sensorMetaDataMap, linkMap,...
     stage, T, deltaTinSecond)
 
-global thresholdVector
-global junctionIndex
-
 % criteria = thresholdVector(junctionIndex, 1);
 criteria = 0;
 

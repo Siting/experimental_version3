@@ -44,7 +44,7 @@ if ABC_selection_type == 1
     numStages = 10;
     arForEveryRound = 0.5;
 elseif ABC_selection_type == 2
-    thresholdVector = [50 50];
+    thresholdVector = [50 50; 10 10];
     perturbationFactor = 0.05;
     numStages = size(thresholdVector,1);
 end

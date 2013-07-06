@@ -1,4 +1,4 @@
-function[ACCEPTED_POP, rejectedPop, indexCollectionPost, filteredWeights] = filterSamples_type2_network(POPULATION_2, indexCollection_1, oldWeights,...
+function[ACCEPTED_POP, REJECTED_POP, indexCollectionPost, filteredWeights] = filterSamples_type2_network(POPULATION_2, indexCollection_1, oldWeights,...
     configID, measConfigID, stage, sensorDataMatrix, tSensorIDs, linkMap, nodeMap, sensorMetaDataMap,...
     T, deltaTinSecond)
 
@@ -14,7 +14,6 @@ function[ACCEPTED_POP, rejectedPop, indexCollectionPost, filteredWeights] = filt
 criteria = 0;
 
 [ACCEPTED_POP, NEW_REJECTED_POP] = initializeAcceptedRejected(linkMap);
-rejectedPop = [];
 indexCollectionPost = [];       % index of the sample which is kept
 filteredWeights = [];           % weights of the samples which are kept
 sensorSelection = [];
@@ -45,6 +44,8 @@ for sample = 1 : length(oldWeights)
         ACCEPTED_POP = saveSample(ACCEPTED_POP, sample, POPULATION_2);
         indexCollectionPost = [indexCollectionPost index];
         filteredWeights = [filteredWeights w];
+    elseif strcmp(choice, 'reject')
+        REJECTED_POP = saveSample(REJECTED_POP, sample, POPULATION_2);
     end
     
     if mod(sample, 80) == 0
