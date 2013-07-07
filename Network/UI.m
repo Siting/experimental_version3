@@ -3,8 +3,6 @@ clear all
 clc
 dbstop if error
 
-profile on
-
 global map
 global arForEveryRound
 global ABC_selection_type
@@ -46,5 +44,4 @@ for i = 1 : length(configID)
     runConfigTest(configID(i), i);
 end
 
-profile viewer
 
