@@ -1,9 +1,7 @@
-function[SOURCE_LINK, SINK_LINK] = loadBoundaryCondtionABC_network(SOURCE_LINK, SINK_LINK, T)
+function[SOURCE_LINK, SINK_LINK] = loadBoundaryCondtionABC_network(SOURCE_LINK, SINK_LINK, T, startTime, endTime)
 
 global boundarySourceSensorIDs
 global boundarySinkSensorIDs
-global startTime
-global endTime
 global sensorDataSource
 
 % sourceLinkIds = SOURCE_LINK.keys;

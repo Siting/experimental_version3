@@ -1,7 +1,5 @@
-function[sensorDataMatrix] = getNoisySensorData_network(tSensorIDs, T)
+function[sensorDataMatrix] = getNoisySensorData_network(tSensorIDs, T, startTime, endTime)
 
-global startTime
-global endTime
 
 for i = 1 : length(tSensorIDs)
     sensorID = tSensorIDs(i);

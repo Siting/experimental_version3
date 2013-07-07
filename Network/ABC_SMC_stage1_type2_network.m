@@ -1,6 +1,6 @@
 function[ACCEPTED_POP, REJECTED_POP, indexCollection] = ABC_SMC_stage1_type2_network(measConfigID, configID, samplingSize, ALL_SAMPLES,...
     populationSize, times, ACCEPTED_POP, REJECTED_POP, indexCollection, tSensorIDs, sensorDataMatrix, nodeMap, sensorMetaDataMap, linkMap,...
-    stage, T, deltaTinSecond)
+    stage, T, deltaTinSecond, thresholdVector)
 
 % criteria = thresholdVector(junctionIndex, 1);
 criteria = 0;
@@ -16,7 +16,7 @@ for sample = ((times-1)*samplingSize + 1) : (times * samplingSize)
     errorMatrix = generateErrorMatrixTest_network(modelDataMatrix, sensorDataMatrix, tSensorIDs);
 
     % reject or select?
-    [choice, sensorSelection] = rejectAccept_network(errorMatrix, criteria, nodeMap, sensorMetaDataMap, linkMap, stage, sensorSelection);
+    [choice, sensorSelection] = rejectAccept_network(errorMatrix, criteria, nodeMap, sensorMetaDataMap, linkMap, stage, sensorSelection, thresholdVector);
 
     % store in population matrix
     if strcmp(choice, 'accept')

@@ -1,4 +1,5 @@
-function[choice, sensorSelection] = rejectAccept_network(errorMatrix, criteria,  nodeMap, sensorMetaDataMap, linkMap, stage, sensorSelection)
+function[choice, sensorSelection] = rejectAccept_network(errorMatrix, criteria,  nodeMap,...
+    sensorMetaDataMap, linkMap, stage, sensorSelection, thresholdVector)
 
 % studyLinks = [nodeMap(nodeID).incomingLinks; nodeMap(nodeID).outgoingLinks];
 % studySensors = [];
@@ -7,8 +8,6 @@ function[choice, sensorSelection] = rejectAccept_network(errorMatrix, criteria, 
 %     studySensors = [studySensors linkMap(studyLinks(i)).sensors];
 % end
 % A = (studySensors == cell2mat(sensorMetaDataMap.keys));
-
-global thresholdVector    
 
 % compute L2 distance
 [distances] = computeL2Distance_network(errorMatrix);

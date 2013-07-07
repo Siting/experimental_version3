@@ -25,13 +25,13 @@ while(condition)
 
     % update Fundamental for links etc, and then run simulation
     disp('start simulation');
-    [LINK, SOURCE_LINK, SINK_LINK, JUNCTION, T, deltaTinSecond] = updateFunAndSimulate_type2_network(POPULATION_2, LINK, SOURCE_LINK, SINK_LINK, JUNCTION,...
+    [LINK, SOURCE_LINK, SINK_LINK, JUNCTION, T, deltaTinSecond, thresholdVector] = updateFunAndSimulate_type2_network(POPULATION_2, LINK, SOURCE_LINK, SINK_LINK, JUNCTION,...
         CONFIG, PARAMETER, indexCollection_1, sensorMetaDataMap, configID, stage, linkMap);
- 
+
     % filter samples, accept or reject?
     disp('start calibration');
     [POPULATION_3, POPULATION_4, indexCollection_2, filteredWeights] = filterSamples_type2_network(POPULATION_2, indexCollection_1, oldWeights,...
-        configID, measConfigID, stage, sensorDataMatrix, testingSensorIDs, linkMap, nodeMap, sensorMetaDataMap, T, deltaTinSecond);
+        configID, measConfigID, stage, sensorDataMatrix, testingSensorIDs, linkMap, nodeMap, sensorMetaDataMap, T, deltaTinSecond, thresholdVector);
     
     if times <= 5
         save([CONFIG.evolutionDataFolder '-sampledAndPertubed-stage-' num2str(stage) '-time-' num2str(times)], 'POPULATION_1', 'POPULATION_2',...

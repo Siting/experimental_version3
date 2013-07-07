@@ -1,9 +1,10 @@
 function[deltaTinSencond, deltaT, nT, numIntervals, numEns,...
-    startString, endString, startTime, unixTimeStep, FUNDAMENTAL, trueNodeRatio,...
+    startTime, endTime, startTimeDate, unixTimeStep, FUNDAMENTAL, trueNodeRatio,...
     vmaxVar, dmaxVar, dcVar, trueNodeRatioVar, modelFirst, modelLast, populationSize,...
     samplingSize, criteria, stateNoiseGamma, measNoiseGamma, etaW, junctionSolverType,...
     numTimeSteps, samplingInterval, trueStateErrorMean, trueStateErrorVar,...
-    measConfigID, measNetworkID, caliNetworkID, testingDataFolder, evolutionDataFolder, sensorDataFolder, configID, T] = getConfigAndPara(CONFIG,PARAMETER)
+    measConfigID, measNetworkID, caliNetworkID, testingDataFolder, evolutionDataFolder,...
+    sensorDataFolder, configID, T, thresholdVector] = getConfigAndPara(CONFIG,PARAMETER)
 
 %% CONFIG info.
 configID = CONFIG.configID;
@@ -26,10 +27,13 @@ numIntervals = PARAMETER.numIntervals;
 samplingInterval=PARAMETER.samplingInterval;
 numEns = PARAMETER.numEns;
 % disp(['Will run with ' num2str(numEns) ' ensembles.']);
+startTime = PARAMETER.startTime;
+endTime = PARAMETER.endTime;
+startTimeDate = PARAMETER.startTimeDate;
 startString = PARAMETER.startString;
 endString = PARAMETER.endString;
-startTime = PARAMETER.startTime;
 unixTimeStep = PARAMETER.unixTimeStep;
+thresholdVector = PARAMETER.thresholdVector;
 FUNDAMENTAL = PARAMETER.FUNDAMENTAL;
 trueNodeRatio = PARAMETER.trueNodeRatio;
 % compute number of time steps will be ran

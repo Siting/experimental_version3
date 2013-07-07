@@ -1,4 +1,4 @@
-function[LINK, JUNCTION, SOURCE_LINK, SINK_LINK] = preloadAndCompute(linkMap, nodeMap, T)
+function[LINK, JUNCTION, SOURCE_LINK, SINK_LINK] = preloadAndCompute(linkMap, nodeMap, T, startTime, endTime)
 
 [LINK] = preLoadLinks(linkMap);
 
@@ -6,4 +6,4 @@ function[LINK, JUNCTION, SOURCE_LINK, SINK_LINK] = preloadAndCompute(linkMap, no
 
 % [RATIO] = precomputeLaneRatioForJunctions(JUNCTION);
 
-[SOURCE_LINK, SINK_LINK] = preloadSourceSink(nodeMap, T);
+[SOURCE_LINK, SINK_LINK] = preloadSourceSink(nodeMap, T, startTime, endTime);

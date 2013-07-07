@@ -1,6 +1,6 @@
 function[ACCEPTED_POP, REJECTED_POP, indexCollectionPost, filteredWeights] = filterSamples_type2_network(POPULATION_2, indexCollection_1, oldWeights,...
     configID, measConfigID, stage, sensorDataMatrix, tSensorIDs, linkMap, nodeMap, sensorMetaDataMap,...
-    T, deltaTinSecond)
+    T, deltaTinSecond, thresholdVector)
 
 % NOTE: there are two kind of indexes involved in the function.
 % 1st: sample index. Which is the index indicating which sample being
@@ -13,7 +13,7 @@ function[ACCEPTED_POP, REJECTED_POP, indexCollectionPost, filteredWeights] = fil
 % criteria = thresholdVector(junctionIndex, stage);
 criteria = 0;
 
-[ACCEPTED_POP, NEW_REJECTED_POP] = initializeAcceptedRejected(linkMap);
+[ACCEPTED_POP, REJECTED_POP] = initializeAcceptedRejected(linkMap);
 indexCollectionPost = [];       % index of the sample which is kept
 filteredWeights = [];           % weights of the samples which are kept
 sensorSelection = [];
@@ -37,7 +37,7 @@ for sample = 1 : length(oldWeights)
     errorMatrix = generateErrorMatrixTest_network(modelDataMatrix, sensorDataMatrix, tSensorIDs);
 
     % reject or select?
-    [choice, sensorSelection] = rejectAccept_network(errorMatrix, criteria, nodeMap, sensorMetaDataMap, linkMap, stage, sensorSelection);
+    [choice, sensorSelection] = rejectAccept_network(errorMatrix, criteria, nodeMap, sensorMetaDataMap, linkMap, stage, sensorSelection, thresholdVector);
     
     % store in population matrix
     if strcmp(choice, 'accept')

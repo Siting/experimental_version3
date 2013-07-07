@@ -10,8 +10,10 @@ PARAMETER.nT=ceil(minutesToHour(PARAMETER.T)/PARAMETER.deltaT);   % # time steps
 PARAMETER.samplingInterval = 1;          % sample density every # time steps
 
 PARAMETER.startString='2011-10-22 00:00:00.000';
-PARAMETER.endString='2011-10-22 00:00:00.000';
-PARAMETER.startTime=datenum(PARAMETER.startString);
+PARAMETER.endString='2011-10-22 00:25:00.000';
+PARAMETER.startTime=4;
+PARAMETER.endTime=5.5;   % 0.5 = 30min
+PARAMETER.startTimeDate=datenum(PARAMETER.startString);
 PARAMETER.unixTimeStep=PARAMETER.deltaTinSencond*1/24/3600;
 
 % compute number of intervals
@@ -42,5 +44,6 @@ PARAMETER.dcVar = 0;
 PARAMETER.trueNodeRatioVar = 0;
 PARAMETER.modelFirst = 1;    % for model selection function
 PARAMETER.modelLast = 1;     % for model selection function
-PARAMETER.populationSize = 1;
-PARAMETER.samplingSize = 12;
+PARAMETER.populationSize = 200;
+PARAMETER.samplingSize = 200;
+PARAMETER.thresholdVector = [1 1; 0.97 0.97; 0.94 0.94; 0.92 0.92; 0.9 0.9];

@@ -1,20 +1,17 @@
 function[] = parameterCalibrationABCSMC_network(CONFIG,PARAMETER,configID)
 
-global numStages
 global testingSensorIDs
 global junctionIndex
-global startTime
-global endTime
-global thresholdVector
 
 tTotalStart = tic;
 % load config & para & map
 [deltaTinSecond, deltaT, nT, numIntervals, numEns,...
-    startString, endString, startTimePara, unixTimeStep, guessedFUNDAMENTAL, trueNodeRatio,...
+    startTime, endTime, startTimePara, unixTimeStep, guessedFUNDAMENTAL, trueNodeRatio,...
     vmaxVar, dmaxVar, dcVar, trueNodeRatioVar, modelFirst, modelLast, populationSize,...
     samplingSize, criteria, stateNoiseGamma, measNoiseGamma, etaW, junctionSolverType,...
     numTimeSteps, samplingInterval, trueStateErrorMean, trueStateErrorVar,...
-    measConfigID, measNetworkID, caliNetworkID, testingDataFolder, evolutionDataFolder, sensorDataFolder, configID, T] = getConfigAndPara(CONFIG,PARAMETER);
+    measConfigID, measNetworkID, caliNetworkID, testingDataFolder, evolutionDataFolder,...
+    sensorDataFolder, configID, T, thresholdVector] = getConfigAndPara(CONFIG,PARAMETER);
 numTimeSteps = (endTime-startTime)*3600/deltaTinSecond;
 
 load([caliNetworkID, '-graph.mat']);
@@ -25,7 +22,7 @@ junctionIndex = 1;
 
 % pre-load links & junctions, also precompute junction lane ratio for
 % diverge and merge junctions
-[LINK, JUNCTION, SOURCE_LINK, SINK_LINK] = preloadAndCompute(linkMap, nodeMap, T);
+[LINK, JUNCTION, SOURCE_LINK, SINK_LINK] = preloadAndCompute(linkMap, nodeMap, T, startTime, endTime);
 
 % iterate through nodes
 % for i = 1 : length(nodeIDs)
@@ -35,6 +32,7 @@ varForRounds = [];
 timeForRounds = [];
 weightsForRounds = [];
 ALL_SAMPLES = initializeAllSamples(linkMap);
+numStages = size(thresholdVector,1);
 
 for stage = 1 : numStages  % iterate stages
     disp(['stage ' num2str(stage)]);
@@ -83,13 +81,13 @@ for stage = 1 : numStages  % iterate stages
             disp('start calibration');
             
             % noisy sensor data
-            [sensorDataMatrix] = getNoisySensorData_network(testingSensorIDs, T);
+            [sensorDataMatrix] = getNoisySensorData_network(testingSensorIDs, T, startTime, endTime);
             
             % ABC SMC stage 1: filter samples according
             [ACCEPTED_POP, REJECTED_POP, indexCollection] = ABC_SMC_stage1_type2_network(measConfigID, CONFIG.configID, samplingSize, ALL_SAMPLES,...
                 populationSize, times, ACCEPTED_POP, REJECTED_POP, indexCollection, testingSensorIDs, sensorDataMatrix, nodeMap,...
-                sensorMetaDataMap, linkMap,stage, T, deltaTinSecond);
-    keyboard        
+                sensorMetaDataMap, linkMap,stage, T, deltaTinSecond, thresholdVector);
+       
             % check accepted population Size
             if size(ACCEPTED_POP(1).samples,2) >= populationSize
                 ar = size(ACCEPTED_POP(1).samples,2) / (times*samplingSize);

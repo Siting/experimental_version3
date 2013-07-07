@@ -1,4 +1,4 @@
-function[SOURCE_LINK, SINK_LINK] = preloadSourceSink(nodeMap, T)
+function[SOURCE_LINK, SINK_LINK] = preloadSourceSink(nodeMap, T, startTime, endTime)
 
 % This function: 1. load nodeMap to set up SOURCE_LINK, SINK_LINK 
 %                   set FUNDAMENTAL parameters all 0 
@@ -44,5 +44,5 @@ for i = length(nodeIds) : -1 : 1
     end
 end
 
-[SOURCE_LINK, SINK_LINK] = loadBoundaryCondtionABC_network(SOURCE_LINK, SINK_LINK, T);
+[SOURCE_LINK, SINK_LINK] = loadBoundaryCondtionABC_network(SOURCE_LINK, SINK_LINK, T, startTime, endTime);
 
