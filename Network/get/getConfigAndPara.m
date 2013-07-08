@@ -1,4 +1,4 @@
-function[deltaTinSencond, deltaT, nT, numIntervals, numEns,...
+function[deltaTinSecond, deltaT, nT, numIntervals, numEns,...
     startTime, endTime, startTimeDate, unixTimeStep, FUNDAMENTAL, trueNodeRatio,...
     vmaxVar, dmaxVar, dcVar, trueNodeRatioVar, modelFirst, modelLast, populationSize,...
     samplingSize, criteria, stateNoiseGamma, measNoiseGamma, etaW, junctionSolverType,...
@@ -20,7 +20,7 @@ sensorDataFolder = CONFIG.sensorDataFolder;
 %% PARAMETER info.
 % extracting parameter info.
 T=PARAMETER.T;
-deltaTinSencond = PARAMETER.deltaTinSencond;
+deltaTinSecond = PARAMETER.deltaTinSecond;
 deltaT = PARAMETER.deltaT;
 nT = PARAMETER.nT;
 numIntervals = PARAMETER.numIntervals;
@@ -37,7 +37,7 @@ thresholdVector = PARAMETER.thresholdVector;
 FUNDAMENTAL = PARAMETER.FUNDAMENTAL;
 trueNodeRatio = PARAMETER.trueNodeRatio;
 % compute number of time steps will be ran
-numTimeSteps = floor(((datenum(endString)-datenum(startString))*24*3600)/deltaTinSencond);
+numTimeSteps = floor(((datenum(endString)-datenum(startString))*24*3600)/deltaTinSecond);
 % disp(['will run ' num2str(numTimeSteps) ' time steps']);
 
 %ABC added===================================================================

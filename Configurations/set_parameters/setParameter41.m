@@ -4,8 +4,8 @@ function[PARAMETER]=setParameter41(PARAMETER)
 
 PARAMETER.parameterID=41;
 PARAMETER.T=0.5;                         % time intervals (mins)
-PARAMETER.deltaTinSencond=2;           % each time step is 2s long
-PARAMETER.deltaT=secondsToHour(PARAMETER.deltaTinSencond);     % unit: hour
+PARAMETER.deltaTinSecond=2;           % each time step is 2s long
+PARAMETER.deltaT=secondsToHour(PARAMETER.deltaTinSecond);     % unit: hour
 PARAMETER.nT=ceil(minutesToHour(PARAMETER.T)/PARAMETER.deltaT);   % # time steps in one interval
 PARAMETER.samplingInterval = 1;          % sample density every # time steps
 
@@ -14,7 +14,7 @@ PARAMETER.endString='2011-10-22 00:25:00.000';
 PARAMETER.startTime=4;
 PARAMETER.endTime=5.5;   % 0.5 = 30min
 PARAMETER.startTimeDate=datenum(PARAMETER.startString);
-PARAMETER.unixTimeStep=PARAMETER.deltaTinSencond*1/24/3600;
+PARAMETER.unixTimeStep=PARAMETER.deltaTinSecond*1/24/3600;
 
 % compute number of intervals
 endTime=datenum(PARAMETER.endString);
