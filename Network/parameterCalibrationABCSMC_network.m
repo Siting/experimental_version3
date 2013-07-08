@@ -133,8 +133,8 @@ for stage = 1 : numStages  % iterate stages
     varForRounds(:,:,stage) = varForLinks;
     arForRounds = [arForRounds ar];
     weightsForRounds = [weightsForRounds; weights];
-    %              keyboard
-    
+    save([evolutionDataFolder '-calibrationResult-stage' num2str(stage)],'ar', 'meanForLinks', 'varForLinks', 'thresholdVector',...
+    'stageT');
 end
 
 tTotalEnd = toc(tTotalStart);
