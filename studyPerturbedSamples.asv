@@ -1,0 +1,27 @@
+% study rejected samples by stages
+clear all
+clc
+
+global boundarySourceSensorIDs
+global boundarySinkSensorIDs
+global testingSensorIDs
+global sensorDataSource
+
+
+series = 11;
+cali_configID = 41;
+cali_paraID = 41;
+simu_configID = 112;
+firstStage = 1;   % feed in
+secondStage = 2;  % retrieve from
+numSamplesStudied = 40;
+numRounds = 2;
+boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
+boundarySinkSensorIDs = [402953; 400698];
+testingSensorIDs = [400739; 400363];
+sensorDataSource = 2;
+
+for i = 1 : numRounds
+    load(['.\ResultCollection\series' num2str(series) '\-sampledAndPertubed-stage-' num2str(secondStage) '-time-' num2str(i) '.mat']);
+    [NEW_ACCEPTED_POP] = saveNewSamples(NEW_ACCEPTED_POP, POPULATION_3)
+end
