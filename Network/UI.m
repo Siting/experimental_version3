@@ -15,7 +15,7 @@ global sensorDataSource
 
 
 % name the index of configuration(s) 
-configID = [42];
+configID = [41];
 
 % boundary sensorIDs & testing sensorIDs
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
@@ -34,7 +34,7 @@ if ABC_selection_type == 1
     numStages = 10;
     arForEveryRound = 0.5;
 elseif ABC_selection_type == 2
-    perturbationFactor = 0.05;
+    perturbationFactor = 0.025;
 end
 
 
