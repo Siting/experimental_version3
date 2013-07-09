@@ -9,8 +9,8 @@ global sensorDataSource
 
 series = 11;
 simu_configID = 111;
-firstStage = 2;   % feed in
-secondStage = 1;  % retrieve from
+firstStage = 4;   % feed in
+secondStage = 3;  % retrieve from
 numSamplesStudied = 100;
 cali_configID = 41;
 cali_paraID = 41;
@@ -77,4 +77,4 @@ for sample = 1 : numSamplesStudied
     end
 end
 
-acceptanceRate = size(ACCEPTED_POP_NEW(1).samples,2) / numSamplesStudied;
+acceptanceRate = size(ACCEPTED_POP_NEW(1).samples,2) / numSamplesStudied

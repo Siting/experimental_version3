@@ -81,6 +81,7 @@ for sample = 1 : numSamplesStudied
     end
 end
 
+acceptanceRate = size(ACCEPTED_POP_NEW(1).samples,2) / numSamplesStudied
 
 
 

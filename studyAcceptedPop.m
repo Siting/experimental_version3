@@ -11,9 +11,9 @@ series = 11;
 cali_configID = 41;
 cali_paraID = 41;
 simu_configID = 112;
-firstStage = 2;   % feed in
-secondStage = 1;  % retrieve from
-numSamplesStudied = 40;
+firstStage = 4;   % feed in
+secondStage = 3;  % retrieve from
+numSamplesStudied = 100;
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
 boundarySinkSensorIDs = [402953; 400698];
 testingSensorIDs = [400739; 400363];
@@ -42,7 +42,7 @@ end
 [LINK, JUNCTION, SOURCE_LINK, SINK_LINK] = preloadAndCompute(linkMap, nodeMap, PARAMETER.T, PARAMETER.startTime, PARAMETER.endTime);
 for sample = 1 : numSamplesStudied
     % extract sample for every link & assign to links
-    for i = 1 : length(REJECTED_POP)
+    for i = 1 : length(ACCEPTED_POP)
         FUNDAMENTAL(i).vmax = ACCEPTED_POP(i).samples(1,sample);
         FUNDAMENTAL(i).dmax = ACCEPTED_POP(i).samples(2,sample);
         FUNDAMENTAL(i).dc = ACCEPTED_POP(i).samples(3,sample);
@@ -77,3 +77,5 @@ for sample = 1 : numSamplesStudied
         REJECTED_POP_NEW = saveSample(REJECTED_POP_NEW, sample, ACCEPTED_POP);
     end
 end
+
+acceptanceRate = size(ACCEPTED_POP_NEW(1).samples,2) / numSamplesStudied
