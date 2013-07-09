@@ -8,12 +8,12 @@ global testingSensorIDs
 global sensorDataSource
 
 series = 11;
+simu_configID = 111;
+firstStage = 2;   % feed in
+secondStage = 1;  % retrieve from
+numSamplesStudied = 100;
 cali_configID = 41;
 cali_paraID = 41;
-simu_configID = 111;
-firstStage = 1;   % feed in
-secondStage = 2;  % retrieve from
-numSamplesStudied = 40;
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
 boundarySinkSensorIDs = [402953; 400698];
 testingSensorIDs = [400739; 400363];
@@ -26,7 +26,7 @@ load(['.\Configurations\configs\CONFIG-' num2str(cali_paraID) '.mat']);
 FUNDAMENTAL = PARAMETER.FUNDAMENTAL;
 load([CONFIG.caliNetworkID, '-graph.mat']);
 load(['.\ResultCollection\series' num2str(series) '\-rejectedPop-stage-' num2str(secondStage) '.mat']);
-simu_evolutionDataFolder = ['.\ResultCollection\series' num2str(simu_configID)];
+simu_evolutionDataFolder = ['.\Result\testingData\config-' num2str(simu_configID)];
 mkdir(simu_evolutionDataFolder);
 numSamples = size(REJECTED_POP(1).samples,2);
 
@@ -62,14 +62,13 @@ sensorSelection = [];
 criteria = 0;
 for sample = 1 : numSamplesStudied
     % load model density simulation data (first row = initial state)
-    [modelDataMatrix] = getModelSimulationDataCumu_network(CONFIG.configID, sample,...
+    [modelDataMatrix] = getModelSimulationDataCumu_network(simu_configID, sample,...
         testingSensorIDs, PARAMETER.T, PARAMETER.deltaTinSecond);
     % create error matrix (density)
     errorMatrix = generateErrorMatrixTest_network(modelDataMatrix, sensorDataMatrix, testingSensorIDs);
     % reject or select?
     [choice, sensorSelection] = rejectAccept_network(errorMatrix, criteria, nodeMap,...
         sensorMetaDataMap, linkMap, firstStage, sensorSelection, PARAMETER.thresholdVector);
-    % save
 
     if strcmp(choice, 'accept')
         ACCEPTED_POP_NEW = saveSample(ACCEPTED_POP_NEW, sample, REJECTED_POP);
@@ -77,3 +76,5 @@ for sample = 1 : numSamplesStudied
         REJECTED_POP_NEW = saveSample(REJECTED_POP_NEW, sample, REJECTED_POP);
     end
 end
+
+acceptanceRate = size(ACCEPTED_POP_NEW(1).samples,2) / numSamplesStudied;

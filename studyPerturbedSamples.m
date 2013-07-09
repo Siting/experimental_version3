@@ -33,7 +33,7 @@ load(['.\Configurations\parameters\PARAMETER-' num2str(cali_paraID) '.mat']);
 load(['.\Configurations\configs\CONFIG-' num2str(cali_paraID) '.mat']);
 FUNDAMENTAL = PARAMETER.FUNDAMENTAL;
 load([CONFIG.caliNetworkID, '-graph.mat']);
-simu_evolutionDataFolder = ['.\ResultCollection\series' num2str(simu_configID)];
+simu_evolutionDataFolder = ['.\Result\testingData\config-' num2str(simu_configID)];
 mkdir(simu_evolutionDataFolder);
 numSamples = size(POPULATION_2(1).samples,2);
 
@@ -65,7 +65,7 @@ sensorSelection = [];
 criteria = 0;
 for sample = 1 : numSamplesStudied
     % load model density simulation data (first row = initial state)
-    [modelDataMatrix] = getModelSimulationDataCumu_network(CONFIG.configID, sample,...
+    [modelDataMatrix] = getModelSimulationDataCumu_network(simu_configID, sample,...
         testingSensorIDs, PARAMETER.T, PARAMETER.deltaTinSecond);
     % create error matrix (density)
     errorMatrix = generateErrorMatrixTest_network(modelDataMatrix, sensorDataMatrix, testingSensorIDs);
