@@ -12,9 +12,9 @@ series = 11;
 cali_configID = 41;
 cali_paraID = 41;
 simu_configID = 112;
-firstStage = 3;   % feed in
-secondStage = 4;  % retrieve from
-numSamplesStudied = 200;
+firstStage = 1;   % feed in
+secondStage = 2;  % retrieve from
+numSamplesStudied = 40;
 numRounds = 2;
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
 boundarySinkSensorIDs = [402953; 400698];
@@ -41,15 +41,11 @@ if numSamplesStudied > numSamples
     numSamplesStudied = numSamples;
 end
 
-% noisy sensor data
-[sensorDataMatrix] = getNoisySensorData_network(testingSensorIDs, PARAMETER.T,...
-    PARAMETER.startTime, PARAMETER.endTime);
-
 % SIMULATION
 [LINK, JUNCTION, SOURCE_LINK, SINK_LINK] = preloadAndCompute(linkMap, nodeMap, PARAMETER.T, PARAMETER.startTime, PARAMETER.endTime);
 for sample = 1 : numSamplesStudied
     % extract sample for every link & assign to links
-    for i = 1 : length(POPULATION_2)
+    for i = 1 : length(REJECTED_POP)
         FUNDAMENTAL(i).vmax = POPULATION_2(i).samples(1,sample);
         FUNDAMENTAL(i).dmax = POPULATION_2(i).samples(2,sample);
         FUNDAMENTAL(i).dc = POPULATION_2(i).samples(3,sample);
@@ -79,9 +75,9 @@ for sample = 1 : numSamplesStudied
     % save
 
     if strcmp(choice, 'accept')
-        ACCEPTED_POP_NEW = saveSample(ACCEPTED_POP_NEW, sample, POPULATION_2);
+        ACCEPTED_POP_NEW = saveSample(ACCEPTED_POP_NEW, sample, ACCEPTED_POP);
     elseif strcmp(choice, 'reject')
-        REJECTED_POP_NEW = saveSample(REJECTED_POP_NEW, sample, POPULATION_2);
+        REJECTED_POP_NEW = saveSample(REJECTED_POP_NEW, sample, ACCEPTED_POP);
     end
 end
 
