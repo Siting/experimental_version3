@@ -7,11 +7,11 @@ global boundarySinkSensorIDs
 global testingSensorIDs
 global sensorDataSource
 
-series = 11;
-simu_configID = 111;
-firstStage = 4;   % feed in
-secondStage = 3;  % retrieve from
-numSamplesStudied = 100;
+series = 13;
+simu_configID = 113;
+firstStage = 3;   % feed in
+secondStage = 4;  % retrieve from
+numSamplesStudied = 80;
 cali_configID = 41;
 cali_paraID = 41;
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
