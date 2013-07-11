@@ -3,20 +3,22 @@ clear all
 clc
 
 series = 11;
-studyStages = [1;2;3;4;5];
-studyLinks = 1:9;
-numSamplesStudied = 20;
+studyStages = [1;3;4;5];
+studyLinks = 1;
+numSamplesStudied = 40;
 
 % assign line colors & legends
 col=str2mat('r', 'g', 'b', 'k', 'y');
 stagesString = [];
 for i = 1 : length(studyStages)
-    stagesString = [stagesString; ['stage ' num2str(i)]];
+    stagesString = [stagesString; ['stage ' num2str(studyStages(i))]];
 end
 
 
 % plot fundamentals    
-for i = 1 : length(studyLinks)    % iterate through links
+for link = 1 : length(studyLinks)    % iterate through links
+    
+    i = studyLinks(link);
     
     for stage = 1 : length(studyStages)
         
@@ -30,7 +32,7 @@ for i = 1 : length(studyLinks)    % iterate through links
             sample_dc = ACCEPTED_POP(i).samples(3,sample);
             % start a figure for link (i)
             figure(i)
-            densityPoints = 1 : 0.1 : sample_dmax;
+            densityPoints = 0 : 0.1 : sample_dmax;
             f = Q(densityPoints, sample_vmax, sample_dmax, sample_dc);
             h(stage) = plot(densityPoints,f, col(stage));
             hold on
@@ -43,8 +45,8 @@ for i = 1 : length(studyLinks)    % iterate through links
     legend(h(1:length(studyStages)), stagesString);
     xlabel('\rho');
     ylabel('q');
-    saveas(gcf, ['.\Plots\series' num2str(series) '\acceptedFuns_link_' num2str(i) '.pdf']);
-    saveas(gcf, ['.\Plots\series' num2str(series) '\acceptedFuns_link_' num2str(i) '.fig']);
-    saveas(gcf, ['.\Plots\series' num2str(series) '\acceptedFuns_link_' num2str(i) '.eps'], 'epsc');
+    saveas(gcf, ['../Plots\series' num2str(series) '\acceptedFuns_link_' num2str(i) '.pdf']);
+    saveas(gcf, ['../Plots\series' num2str(series) '\acceptedFuns_link_' num2str(i) '.fig']);
+    saveas(gcf, ['../Plots\series' num2str(series) '\acceptedFuns_link_' num2str(i) '.eps'], 'epsc');
 
 end
