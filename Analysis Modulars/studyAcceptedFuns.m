@@ -3,9 +3,9 @@ clear all
 clc
 
 series = 11;
-studyStages = [1;2;3;4];
+studyStages = [1;2;3;4;5];
 studyLinks = 1:9;
-numSamplesStudied = 3;
+numSamplesStudied = 20;
 
 % assign line colors & legends
 col=str2mat('r', 'g', 'b', 'k', 'y');
