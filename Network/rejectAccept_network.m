@@ -1,16 +1,10 @@
-function[choice, sensorSelection] = rejectAccept_network(errorMatrix, criteria,  nodeMap,...
-    sensorMetaDataMap, linkMap, stage, sensorSelection, thresholdVector)
-
-% studyLinks = [nodeMap(nodeID).incomingLinks; nodeMap(nodeID).outgoingLinks];
-% studySensors = [];
-% keyboard
-% for i = 1 : length(studyLinks)
-%     studySensors = [studySensors linkMap(studyLinks(i)).sensors];
-% end
-% A = (studySensors == cell2mat(sensorMetaDataMap.keys));
+function[choice, sensorSelection, errorCollectionForStage] = rejectAccept_network(errorMatrix, criteria,  nodeMap,...
+    sensorMetaDataMap, linkMap, stage, sensorSelection, thresholdVector, errorCollectionForStage)
 
 % compute L2 distance
 [distances] = computeL2Distance_network(errorMatrix);
+% store in errorCollection matrix
+errorCollectionForStage = [errorCollectionForStage; distances];
 A = ones(1,2);
 if min(distances<=thresholdVector(stage,:))==0
     choice = 'reject';

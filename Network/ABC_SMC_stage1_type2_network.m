@@ -1,6 +1,6 @@
-function[ACCEPTED_POP, REJECTED_POP, indexCollection] = ABC_SMC_stage1_type2_network(measConfigID, configID, samplingSize, ALL_SAMPLES,...
+function[ACCEPTED_POP, REJECTED_POP, indexCollection, errorCollectionForStage] = ABC_SMC_stage1_type2_network(measConfigID, configID, samplingSize, ALL_SAMPLES,...
     populationSize, times, ACCEPTED_POP, REJECTED_POP, indexCollection, tSensorIDs, sensorDataMatrix, nodeMap, sensorMetaDataMap, linkMap,...
-    stage, T, deltaTinSecond, thresholdVector)
+    stage, T, deltaTinSecond, thresholdVector, errorCollectionForStage)
 
 % criteria = thresholdVector(junctionIndex, 1);
 criteria = 0;
@@ -16,7 +16,8 @@ for sample = ((times-1)*samplingSize + 1) : (times * samplingSize)
     errorMatrix = generateErrorMatrixTest_network(modelDataMatrix, sensorDataMatrix, tSensorIDs);
 
     % reject or select?
-    [choice, sensorSelection] = rejectAccept_network(errorMatrix, criteria, nodeMap, sensorMetaDataMap, linkMap, stage, sensorSelection, thresholdVector);
+    [choice, sensorSelection, errorCollectionForStage] = rejectAccept_network(errorMatrix, criteria, nodeMap, sensorMetaDataMap,...
+        linkMap, stage, sensorSelection, thresholdVector, errorCollectionForStage);
 
     % store in population matrix
     if strcmp(choice, 'accept')
@@ -24,13 +25,9 @@ for sample = ((times-1)*samplingSize + 1) : (times * samplingSize)
         indexCollection = [indexCollection, sample];
     elseif strcmp(choice, 'reject')
         REJECTED_POP = saveSample(REJECTED_POP, sample, ALL_SAMPLES);
-    else
-        disp('There is an error occurs when making choices.');
     end
     
-%     if mod(sample, 100) == 0
-%         disp(['sample ' num2str(sample) ' finished']);
-%     end
+
     
 end
 

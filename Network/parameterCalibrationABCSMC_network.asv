@@ -33,6 +33,7 @@ timeForRounds = [];
 weightsForRounds = [];
 ALL_SAMPLES = initializeAllSamples(linkMap);
 numStages = size(thresholdVector,1);
+errorCollection = zeros(5,length(testingSensorIDs),numStages);
 
 for stage = 1 : numStages  % iterate stages
     disp(['stage ' num2str(stage)]);
@@ -108,7 +109,7 @@ for stage = 1 : numStages  % iterate stages
         save([evolutionDataFolder '-allRandomSamples'], 'ALL_SAMPLES');
         save([evolutionDataFolder '-acceptedPop-stage-' num2str(stage)], 'ACCEPTED_POP');
         save([evolutionDataFolder '-rejectedPop-stage-' num2str(stage)], 'REJECTED_POP');
-        save([evolutionDataFolder '-errorCollection-stage-' num2str(stage)], 'errorCollectionForStage');
+        save([evolutionDataFolder '-errorCollection-stage-' num2str(stage)], 'REJECTED_POP');
         
         % initialize weights
         weights = 1 / size(ACCEPTED_POP(1).samples,2) * ones(1, size(ACCEPTED_POP(1).samples,2));
@@ -120,14 +121,13 @@ for stage = 1 : numStages  % iterate stages
     else
         stageStart = tic;
         
-        [ACCEPTED_POP, weights, ar, REJECTED_POP, errorCollectionForStage] = ABC_SMC_stage2AndLater2_type2_network(measConfigID, configID, samplingSize, criteria,...
+        [ACCEPTED_POP, weights, ar, REJECTED_POP] = ABC_SMC_stage2AndLater2_type2_network(measConfigID, configID, samplingSize, criteria,...
             ACCEPTED_POP, REJECTED_POP, ALL_SAMPLES, weights, populationSize, PARAMETER, CONFIG,...
             sensorMetaDataMap, LINK, SOURCE_LINK, SINK_LINK, JUNCTION, stage, linkMap, testingSensorIDs,...
-            sensorDataMatrix, nodeMap, errorCollectionForStage);
+            sensorDataMatrix, nodeMap);
         
         save([evolutionDataFolder '-acceptedPop-stage-' num2str(stage)], 'ACCEPTED_POP');
         save([evolutionDataFolder '-rejectedPop-stage-' num2str(stage)], 'REJECTED_POP');
-        save([evolutionDataFolder '-errorCollection-stage-' num2str(stage)], 'errorCollectionForStage');
         fclose('all');
         stageT = toc(stageStart);
         timeForRounds = [timeForRounds, stageT];
