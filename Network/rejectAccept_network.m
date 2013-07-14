@@ -1,10 +1,10 @@
-function[choice, sensorSelection, errorCollectionForStage] = rejectAccept_network(errorMatrix, criteria,  nodeMap,...
-    sensorMetaDataMap, linkMap, stage, sensorSelection, thresholdVector, errorCollectionForStage)
+function[choice, sensorSelection, sampleError] = rejectAccept_network(errorMatrix, criteria,  nodeMap,...
+    sensorMetaDataMap, linkMap, stage, sensorSelection, thresholdVector)
 
 % compute L2 distance
 [distances] = computeL2Distance_network(errorMatrix);
 % store in errorCollection matrix
-errorCollectionForStage = [errorCollectionForStage; distances];
+sampleError = max(distances);
 A = ones(1,2);
 if min(distances<=thresholdVector(stage,:))==0
     choice = 'reject';

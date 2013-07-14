@@ -12,7 +12,7 @@ PARAMETER.samplingInterval = 1;          % sample density every # time steps
 PARAMETER.startString='2011-10-22 00:00:00.000';
 PARAMETER.endString='2011-10-22 00:25:00.000';
 PARAMETER.startTime=4;
-PARAMETER.endTime=4.25;   % 0.5 = 30min
+PARAMETER.endTime=5.5;   % 0.5 = 30min
 PARAMETER.startTimeDate=datenum(PARAMETER.startString);
 PARAMETER.unixTimeStep=PARAMETER.deltaTinSecond*1/24/3600;
 
@@ -44,6 +44,6 @@ PARAMETER.dcVar = 0;
 PARAMETER.trueNodeRatioVar = 0;
 PARAMETER.modelFirst = 1;    % for model selection function
 PARAMETER.modelLast = 1;     % for model selection function
-PARAMETER.populationSize = 5;
-PARAMETER.samplingSize = 2;
-PARAMETER.thresholdVector = [50 50; 30 30; 0.94 0.94; 0.92 0.92; 0.9 0.9];
+PARAMETER.populationSize = 100;
+PARAMETER.samplingSize = 100;
+PARAMETER.thresholdVector = [1 1; 50 50; 50 50; 50 50; 50 50; 50 50; 50 50;];

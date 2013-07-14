@@ -59,6 +59,7 @@ end
 % FILTER
 [ACCEPTED_POP_NEW, REJECTED_POP_NEW] = initializeAcceptedRejected(linkMap);
 sensorSelection = [];
+errorCollectionForStage = [];
 criteria = 0;
 for sample = 1 : numSamplesStudied
     % load model density simulation data (first row = initial state)
@@ -67,8 +68,8 @@ for sample = 1 : numSamplesStudied
     % create error matrix (density)
     errorMatrix = generateErrorMatrixTest_network(modelDataMatrix, sensorDataMatrix, testingSensorIDs);
     % reject or select?
-    [choice, sensorSelection] = rejectAccept_network(errorMatrix, criteria, nodeMap,...
-        sensorMetaDataMap, linkMap, firstStage, sensorSelection, PARAMETER.thresholdVector);
+    [choice, sensorSelection, errorCollectionForStage] = rejectAccept_network(errorMatrix, criteria, nodeMap,...
+        sensorMetaDataMap, linkMap, firstStage, sensorSelection, PARAMETER.thresholdVector, errorCollectionForStage);
     % save
 
     if strcmp(choice, 'accept')

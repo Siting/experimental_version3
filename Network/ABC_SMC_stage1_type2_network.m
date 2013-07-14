@@ -16,13 +16,14 @@ for sample = ((times-1)*samplingSize + 1) : (times * samplingSize)
     errorMatrix = generateErrorMatrixTest_network(modelDataMatrix, sensorDataMatrix, tSensorIDs);
 
     % reject or select?
-    [choice, sensorSelection, errorCollectionForStage] = rejectAccept_network(errorMatrix, criteria, nodeMap, sensorMetaDataMap,...
-        linkMap, stage, sensorSelection, thresholdVector, errorCollectionForStage);
+    [choice, sensorSelection, sampleError] = rejectAccept_network(errorMatrix, criteria, nodeMap, sensorMetaDataMap,...
+        linkMap, stage, sensorSelection, thresholdVector);
 
     % store in population matrix
     if strcmp(choice, 'accept')
         ACCEPTED_POP = saveSample(ACCEPTED_POP, sample, ALL_SAMPLES);
         indexCollection = [indexCollection, sample];
+        errorCollectionForStage = [errorCollectionForStage sampleError];
     elseif strcmp(choice, 'reject')
         REJECTED_POP = saveSample(REJECTED_POP, sample, ALL_SAMPLES);
     end

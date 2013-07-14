@@ -10,7 +10,7 @@ linkID = 1;
 
 load(['.\ResultCollection\series' num2str(series) '\-sampledAndPertubed-stage-'...
     num2str(stage) '-time-' num2str(time) '.mat']);
-keyboard
+
 population_1 = POPULATION_1(linkID).samples(:,1:sampleSize);
 population_2 = POPULATION_2(linkID).samples(:,1:sampleSize);
 population_3 = POPULATION_3(linkID).samples;

@@ -12,6 +12,8 @@ global boundarySinkSensorIDs
 global testingSensorIDs
 global funsOption
 global sensorDataSource
+global thresholdChoice
+global expectAR
 
 
 % name the index of configuration(s) 
@@ -23,6 +25,8 @@ boundarySinkSensorIDs = [402953; 400698];
 testingSensorIDs = [400739; 400363];
 funsOption = 2;    % 1: uniform,  2:non-uniform
 sensorDataSource = 2;  % 2: from real sensor data
+thresholdChoice = 2;  % 1: manually 2:adaptive
+expectAR = 0.25;
 
 ABC_selection_type = 2;
 
@@ -34,7 +38,7 @@ if ABC_selection_type == 1
     numStages = 10;
     arForEveryRound = 0.5;
 elseif ABC_selection_type == 2
-    perturbationFactor = 0.025;
+    perturbationFactor = 0.25;
 end
 
 

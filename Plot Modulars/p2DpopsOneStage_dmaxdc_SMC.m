@@ -25,7 +25,7 @@ S = repmat([3]*10,numel(population_2(1,:)),1);
 h2 = scatter(population_2(2,:),population_2(3,:),S(:),'b', 'filled');    % perturbed
 
 h3 = scatter(population_3(2,:),population_3(3,:),'k');          % accepted
-keyboard
+
 legend([h1 h3 h4], 'previous','perturbed', 'accepted');
 xlabel('\rho_{max}');
 ylabel('\rho_c');
