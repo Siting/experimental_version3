@@ -6,18 +6,20 @@ global boundarySourceSensorIDs
 global boundarySinkSensorIDs
 global testingSensorIDs
 global sensorDataSource
+global thresholdChoice
 
-series = 11;
+series = 15;
 cali_configID = 41;
 cali_paraID = 41;
-simu_configID = 112;
-firstStage = 4;   % feed in
-secondStage = 3;  % retrieve from
+simu_configID = 115;
+firstStage = 7;   % feed in
+secondStage = 6;  % retrieve from
 numSamplesStudied = 100;
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
 boundarySinkSensorIDs = [402953; 400698];
 testingSensorIDs = [400739; 400363];
 sensorDataSource = 2;
+thresholdChoice = 2;
 
 % load thresholdVecotr & rejected samples & PARA
 load(['.\ResultCollection\series' num2str(series) '\-calibrationResult.mat']);
@@ -68,8 +70,14 @@ for sample = 1 : numSamplesStudied
     % create error matrix (density)
     errorMatrix = generateErrorMatrixTest_network(modelDataMatrix, sensorDataMatrix, testingSensorIDs);
     % reject or select?
-    [choice, sensorSelection, errorCollectionForStage] = rejectAccept_network(errorMatrix, criteria, nodeMap,...
-        sensorMetaDataMap, linkMap, firstStage, sensorSelection, PARAMETER.thresholdVector, errorCollectionForStage);
+    if thresholdChoice == 1
+        [choice, sensorSelection, sampleError] = rejectAccept_network(errorMatrix, criteria, nodeMap,...
+            sensorMetaDataMap, linkMap, firstStage, sensorSelection, PARAMETER.thresholdVector);
+    elseif thresholdChoice == 2
+        thresholdVector(firstStage,:) = [criteriaForRounds(firstStage) criteriaForRounds(firstStage)];
+        [choice, sensorSelection, sampleError] = rejectAccept_network(errorMatrix, criteria, nodeMap,...
+            sensorMetaDataMap, linkMap, firstStage, sensorSelection, thresholdVector);
+    end
     % save
 
     if strcmp(choice, 'accept')

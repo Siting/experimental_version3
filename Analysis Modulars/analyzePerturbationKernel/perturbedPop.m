@@ -70,7 +70,7 @@ for sample = 1 : numSamplesStudied
     % create error matrix (density)
     errorMatrix = generateErrorMatrixTest_network(modelDataMatrix, sensorDataMatrix, testingSensorIDs);
     % reject or select?
-    [choice, sensorSelection] = rejectAccept_network(errorMatrix, criteria, nodeMap,...
+    [choice, sensorSelection, sampleError] = rejectAccept_network(errorMatrix, criteria, nodeMap,...
         sensorMetaDataMap, linkMap, firstStage, sensorSelection, PARAMETER.thresholdVector);
     % save
 
