@@ -6,10 +6,11 @@ global boundarySourceSensorIDs
 global boundarySinkSensorIDs
 global testingSensorIDs
 global sensorDataSource
+global thresholdChoice
 
-series = 11;
-studyStages = [1;3;4;5];
-numSamplesStudied = 100;
+series = 15;
+studyStages = [7];
+numSamplesStudied = 5;
 cali_configID = 41;
 cali_paraID = 41;
 simu_configID = 115;
@@ -17,6 +18,7 @@ boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
 boundarySinkSensorIDs = [402953; 400698];
 testingSensorIDs = [400739; 400363];
 sensorDataSource = 2;
+thresholdChoice = 2;
 
 % load thresholdVecotr & PARA & CONFIG
 load(['.\ResultCollection\series' num2str(series) '\-calibrationResult.mat']);
@@ -78,18 +80,28 @@ for i = 1 : length(studyStages)   % iterate through stages
         % create error matrix (density)
         errorMatrix = generateErrorMatrixTest_network(modelDataMatrix, sensorDataMatrix, testingSensorIDs);
         % reject or select?
-        [choice, sensorSelection, sampleError] = rejectAccept_network(errorMatrix, criteria, nodeMap,...
-            sensorMetaDataMap, linkMap, studyStages(i), sensorSelection, PARAMETER.thresholdVector);
+        if thresholdChoice == 1
+            [choice, sensorSelection, sampleError] = rejectAccept_network(errorMatrix, criteria, nodeMap,...
+                sensorMetaDataMap, linkMap, studyStages(i), sensorSelection, PARAMETER.thresholdVector);
+        elseif thresholdChoice == 2
+            thresholdVector(studyStages(i),:) = [criteriaForRounds(studyStages(i)) criteriaForRounds(studyStages(i))];
+            [choice, sensorSelection, sampleError] = rejectAccept_network(errorMatrix, criteria, nodeMap,...
+                sensorMetaDataMap, linkMap, studyStages(i), sensorSelection, thresholdVector);
+        end
         
         errorCollectionForStage = [errorCollectionForStage sampleError];
     end
     
     % sort array in ascending order
     errorArrayStages(:,i) = sort(errorCollectionForStage, 'ascend');
+    keyboard
+    matrixSize = size(sensorDataMatrix(:,1),1);
 
-    relativeErrorStages(:,i) = max(errorArrayStages(:,i) / norm(sensorDataMatrix(:,1)),...
-        errorArrayStages(:,i) / norm(sensorDataMatrix(:,2)));
+    relativeErrorStages(:,i) = max(errorArrayStages(:,i) / ( 1/matrixSize * norm(sensorDataMatrix(:,1))),...
+        errorArrayStages(:,i) / ( 1/matrixSize * norm(sensorDataMatrix(:,2))));
     
+    newRelativeError = mean(errorMatrix(2:end,1)./sensorDataMatrix(3:end,1))
+
 end
 
 figure

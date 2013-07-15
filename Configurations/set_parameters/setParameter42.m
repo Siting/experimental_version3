@@ -4,8 +4,8 @@ function[PARAMETER]=setParameter42(PARAMETER)
 
 PARAMETER.parameterID=42;
 PARAMETER.T=0.5;                         % time intervals (mins)
-PARAMETER.deltaTinSencond=2;           % each time step is 2s long
-PARAMETER.deltaT=secondsToHour(PARAMETER.deltaTinSencond);     % unit: hour
+PARAMETER.deltaTinSecond=2;           % each time step is 2s long
+PARAMETER.deltaT=secondsToHour(PARAMETER.deltaTinSecond);     % unit: hour
 PARAMETER.nT=ceil(minutesToHour(PARAMETER.T)/PARAMETER.deltaT);   % # time steps in one interval
 PARAMETER.samplingInterval = 1;          % sample density every # time steps
 
@@ -14,7 +14,7 @@ PARAMETER.endString='2011-10-22 00:25:00.000';
 PARAMETER.startTime= 8;
 PARAMETER.endTime= 10;
 PARAMETER.startTimeDate=datenum(PARAMETER.startString);
-PARAMETER.unixTimeStep=PARAMETER.deltaTinSencond*1/24/3600;
+PARAMETER.unixTimeStep=PARAMETER.deltaTinSecond*1/24/3600;
 
 % compute number of intervals
 endTime=datenum(PARAMETER.endString);
@@ -44,6 +44,6 @@ PARAMETER.dcVar = 0;
 PARAMETER.trueNodeRatioVar = 0;
 PARAMETER.modelFirst = 1;    % for model selection function
 PARAMETER.modelLast = 1;     % for model selection function
-PARAMETER.populationSize = 100;
-PARAMETER.samplingSize = 100;
-PARAMETER.thresholdVector = [3 3; 2.7 2.8; 2.4 2.6; 2.2 2.4];
+PARAMETER.populationSize = 10;
+PARAMETER.samplingSize = 80;
+PARAMETER.thresholdVector = [3 3; 50 50; 50 50; 50 50; 50 50; 50 50; 50 50;];

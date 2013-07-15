@@ -17,7 +17,7 @@ global expectAR
 
 
 % name the index of configuration(s) 
-configID = [41];
+configID = [42];
 
 % boundary sensorIDs & testing sensorIDs
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
