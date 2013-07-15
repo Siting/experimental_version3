@@ -64,7 +64,7 @@ for j = 1 : length(linkWithSensor)
         % extract sample info
         pop = population(:,sample);
         
-        % compute pdf of the assumed distribution(multivariate)
+        % compute pdf of the assumed prior distribution(multivariate)
         if covMatrix_prior(1,1) == 0
             priorPDF = 1;
         else

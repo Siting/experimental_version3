@@ -11,7 +11,8 @@ for i = 1 : size(priorPopulation,2)
     if covMatrix_post(1,1) == 0
         p = 1;
     else
-        p = mvnpdf(priorSample, pop, covMatrix_post);
+%         p = mvnpdf(priorSample, pop, covMatrix_post);
+        p = mvnpdf(pop, priorSample, covMatrix_post);
     end
     
     % store pdfs
