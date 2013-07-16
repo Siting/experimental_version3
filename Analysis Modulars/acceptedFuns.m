@@ -2,8 +2,8 @@
 clear all
 clc
 
-series = 11;
-studyStages = [1;3;4;5];
+series = 15;
+studyStages = [1;3;5;7];
 studyLinks = 1;
 numSamplesStudied = 40;
 

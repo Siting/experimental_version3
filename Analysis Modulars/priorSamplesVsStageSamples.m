@@ -2,10 +2,10 @@
 clear all
 clc
 
-series = 11;
-studyStages = [0; 2; 4];
+series = 15;
+studyStages = [0; 1; 3; 5; 7];
 studyLinks = 1;
-samplingSize = 100;
+samplingSize = 50;
 configID = 41;
 
 % assign line colors & legends

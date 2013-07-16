@@ -4,6 +4,8 @@ clc
 series = 15;
 studyStages = [1;3;5;7];
 studyLinks = [1];
+xlimLow = 10;
+xlimHigh = 50;
 cali_configID = 41;
 cali_paraID = 41;
 simu_configID = 115;
@@ -17,8 +19,8 @@ for j = 1 : length(studyLinks)
         figure(j)
         subplot(ceil(length(studyStages))/2,2,i)
         hist(ACCEPTED_POP(link).samples(3,:));
-        xlim([40 80])
-        xlabel('d_{c}');
+        xlim([xlimLow xlimHigh]);
+        xlabel('\rho_{c}');
         title(['stage ' num2str(stage) ' of link ' num2str(link)]);
         hold on
     end   

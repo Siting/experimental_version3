@@ -106,11 +106,6 @@ for stage = 1 : numStages  % iterate stages
             
         end
         
-        save([evolutionDataFolder '-allRandomSamples'], 'ALL_SAMPLES');
-        save([evolutionDataFolder '-acceptedPop-stage-' num2str(stage)], 'ACCEPTED_POP');
-        save([evolutionDataFolder '-rejectedPop-stage-' num2str(stage)], 'REJECTED_POP');
-        save([evolutionDataFolder '-errorCollection-stage-' num2str(stage)], 'errorCollectionForStage');
-   
         % initialize weights
         weights = 1 / size(ACCEPTED_POP(1).samples,2) * ones(1, size(ACCEPTED_POP(1).samples,2));
         
@@ -118,6 +113,13 @@ for stage = 1 : numStages  % iterate stages
         stageT = toc(stageStart);
         timeForRounds = [timeForRounds, stageT];
         criteriaForStage = thresholdVector(1);
+        
+        save([evolutionDataFolder '-allRandomSamples'], 'ALL_SAMPLES');
+        save([evolutionDataFolder '-acceptedPop-stage-' num2str(stage)], 'ACCEPTED_POP');
+        save([evolutionDataFolder '-rejectedPop-stage-' num2str(stage)], 'REJECTED_POP');
+        save([evolutionDataFolder '-errorCollection-stage-' num2str(stage)], 'errorCollectionForStage');
+        save([evolutionDataFolder '-weights-stage-' num2str(stage)], 'weights');
+   
         
     else
         stageStart = tic;
@@ -130,6 +132,8 @@ for stage = 1 : numStages  % iterate stages
         save([evolutionDataFolder '-acceptedPop-stage-' num2str(stage)], 'ACCEPTED_POP');
         save([evolutionDataFolder '-rejectedPop-stage-' num2str(stage)], 'REJECTED_POP');
         save([evolutionDataFolder '-errorCollection-stage-' num2str(stage)], 'errorCollectionForStage');
+        save([evolutionDataFolder '-weights-stage-' num2str(stage)], 'weights');
+        
         fclose('all');
         stageT = toc(stageStart);
         timeForRounds = [timeForRounds, stageT];

@@ -2,8 +2,8 @@
 clear all
 clc
 
-series = 11;
-studyStages = [0;1;3;4];
+series = 15;
+studyStages = [0;1;3;5;7];
 studyLinks = 1;
 configID = 41;
 

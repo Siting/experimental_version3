@@ -2,10 +2,10 @@
 clear all
 clc
 
-series = 11;
-studyStages = [2;4];
+series = 15;
+studyStages = [3; 5; 7];
 studyLinks = 1;
-numSamplesStudied = 100;
+numSamplesStudied = 40;
 
 % assign line colors & legends
 col=str2mat('r', 'g', 'b', 'k', 'y');

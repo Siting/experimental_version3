@@ -44,9 +44,9 @@ boxplot(relativeErrorStages);
 xlabel('Stage');
 ylabel('Relative error');
 
-saveas(gcf, ['../Plots\series' num2str(series) '\errorDistributionOfpreSavedSamples.pdf']);
-saveas(gcf, ['../Plots\series' num2str(series) '\errorDistributionOfpreSavedSamples.fig']);
-saveas(gcf, ['../Plots\series' num2str(series) '\errorDistributionOfpreSavedSamples.eps'], 'epsc');
+saveas(gcf, ['../Plots\series' num2str(series) '\errorDistributionOfpreSavedErrorCollection.pdf']);
+saveas(gcf, ['../Plots\series' num2str(series) '\errorDistributionOfpreSavedErrorCollection.fig']);
+saveas(gcf, ['../Plots\series' num2str(series) '\errorDistributionOfpreSavedErrorCollection.eps'], 'epsc');
 
 
 

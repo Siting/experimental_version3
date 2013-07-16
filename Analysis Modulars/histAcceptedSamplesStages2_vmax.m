@@ -16,7 +16,6 @@ for i = 1 : length(studyStages)
     stagesString = [stagesString; ['stage ' num2str(studyStages(i))]];
 end
 
-keyboard
 for j = 1 : length(studyLinks)
     link = studyLinks(j);
     for i = 1 : length(studyStages)
@@ -27,7 +26,7 @@ for j = 1 : length(studyLinks)
         h(i) = plot(xout, n, col(i));
         hold on
     end  
-    keyboard
+
     xlabel('v_{max}');
     title(['stage ' num2str(stage) ' of link ' num2str(link)]);
     legend(h(1:length(studyStages)), stagesString);
