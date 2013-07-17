@@ -60,7 +60,7 @@ for link = 1 : length(studyLinks)    % iterate through links
     legend(h, stagesString);
     xlabel('\rho');
     ylabel('q');
-    saveas(gcf, ['../Plots\series' num2str(series) '\priorVsMeanStages_link_' num2str(i) '.pdf']);
-    saveas(gcf, ['../Plots\series' num2str(series) '\priorVsMeanStages_link_' num2str(i) '.fig']);
-    saveas(gcf, ['../Plots\series' num2str(series) '\priorVsMeanStages_link_' num2str(i) '.eps'], 'epsc');
+    saveas(gcf, ['../Plots\series' num2str(series) '\priorVsMeanStagesFuns_link_' num2str(i) '.pdf']);
+    saveas(gcf, ['../Plots\series' num2str(series) '\priorVsMeanStagesFuns_link_' num2str(i) '.fig']);
+    saveas(gcf, ['../Plots\series' num2str(series) '\priorVsMeanStagesFuns_link_' num2str(i) '.eps'], 'epsc');
 end

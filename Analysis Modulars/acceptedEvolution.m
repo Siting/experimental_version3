@@ -13,7 +13,7 @@ stage = 7;
 cali_configID = 41;
 cali_paraID = 41;
 simu_configID = 118;
-numSamplesStudied = 2;
+numSamplesStudied = 1;
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
 boundarySinkSensorIDs = [402953; 400698];
 testingSensorIDs = [400739; 400363];
@@ -75,7 +75,6 @@ for sample = 1 : numSamplesStudied
             size(linkDensity_cali,2)*size(linkDensity_cali,3)]);
         
         figure(sample * j)
-
         imagesc(linkDensity_cali');
  
         title(['Link ' num2str(link) ' density evolution with calibrated parameters.']);
@@ -84,7 +83,7 @@ for sample = 1 : numSamplesStudied
         set(gca,'yDir','Normal');
         set(gca,'xDir','Normal');
         h = colorbar;
-        
+        hold on
         saveas(gcf, ['../Plots\series' num2str(series) '\acceptedEvolution_sample_ ' num2str(sample) '_link_' num2str(link) '.pdf']);
         saveas(gcf, ['../Plots\series' num2str(series) '\acceptedEvolution_sample_ ' num2str(sample) '_link_' num2str(link) '.fig']);
         saveas(gcf, ['../Plots\series' num2str(series) '\acceptedEvolution_sample_ ' num2str(sample) '_link_' num2str(link) '.eps'], 'epsc');
