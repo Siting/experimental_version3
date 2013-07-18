@@ -38,8 +38,8 @@ if numSamplesStudied > numSamples
 end
 
 % SIMULATION
-[LINK, JUNCTION, SOURCE_LINK, SINK_LINK] = preloadAndCompute(linkMap, nodeMap, PARAMETER.T, PARAMETER.startTime, PARAMETER.endTime);
 for sample = 1 : numSamplesStudied
+    [LINK, JUNCTION, SOURCE_LINK, SINK_LINK] = preloadAndCompute(linkMap, nodeMap, PARAMETER.T, PARAMETER.startTime, PARAMETER.endTime);
     % extract sample for every link & assign to links
     for i = 1 : length(ACCEPTED_POP)
         FUNDAMENTAL(i).vmax = ACCEPTED_POP(i).samples(1,sample);
@@ -51,7 +51,7 @@ for sample = 1 : numSamplesStudied
         LINK, JUNCTION, SOURCE_LINK, SINK_LINK);    
     
     % all links density results
-    save([simu_linkEvolutionDataFolder '\LINK-CONFIG-' num2str(cali_configID)],'LINK');
+    save([simu_linkEvolutionDataFolder '\LINK-CONFIG-' num2str(cali_configID) '-sample-' num2str(sample)],'LINK');
     
     if mod(sample, 20) == 0
         disp(['sample ' num2str(sample) ' is finished']);
@@ -62,7 +62,7 @@ end
 for sample = 1 : numSamplesStudied
     
     % load LINK of the sample
-    load(['.\Result\evolutionData\config-' num2str(simu_configID) '\LINK-CONFIG-' num2str(cali_configID) '.mat']);
+    load(['.\Result\evolutionData\config-' num2str(simu_configID) '\LINK-CONFIG-' num2str(cali_configID) '-sample-' num2str(sample) '.mat']);
     
     for j = 1 : length(studyLinks)
         link = studyLinks(j);

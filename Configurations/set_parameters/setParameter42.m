@@ -22,9 +22,9 @@ unixTimeInterval=PARAMETER.T/(24*60);
 PARAMETER.numIntervals=round((endTime-PARAMETER.startTime)/unixTimeInterval);        
 
 % fundamental diagram parameters
-PARAMETER.vmax = 65;
-PARAMETER.dmax = 150;
-PARAMETER.dc = 30;
+PARAMETER.vmax = 0;
+PARAMETER.dmax = 0;
+PARAMETER.dc = 0;
 PARAMETER.FUNDAMENTAL=struct('vmax',PARAMETER.vmax,'dmax',PARAMETER.dmax,'dc',PARAMETER.dc);
 
 % split ratio
